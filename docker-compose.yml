@@ -1,0 +1,22 @@
+version: '3.5'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/frontend
+    ports:
+      - '5173:5173'
+    image: deeplyfe:v1
+    container_name: deeplyfeFN1
+    command: npm run dev
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - '80:80'
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - app
